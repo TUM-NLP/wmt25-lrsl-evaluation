@@ -1,7 +1,7 @@
 # WMT25 Shared Task - LLMs with Limited Resources for Slavic Languages: MT and QA (WMT25-LRSL)
 
 This is a fork of the [lm-evaluation-harness](https://github.com/EleutherAI/lm-evaluation-harness) to aid with development for the WMT25-LRSL shared task.
-This is repository shows how the baseline scores were obtained, and may optionally be used by participants to evaluate their models during the development phase.
+This repository shows how the baseline scores were obtained, and may optionally be used by participants to evaluate their models during the development phase.
 
 ## Setup
 
