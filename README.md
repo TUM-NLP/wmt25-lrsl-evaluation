@@ -102,7 +102,7 @@ metadata:
 
 ### Changing the prompt
 
-The `doc_to_text` prompts the model to put pseudo-html tags around the translation, and then the translation is post-processed with `filter_list` to only consider anything inside these tags. (We do this because LLMs like to output other text, such as explanations.) The output is compared to `doc_to_target` for metrics. `{{de}}` and `{{hsb}}` refer to columns in the CSV. 
+The `doc_to_text` field in the `.yaml` file prompts the model to put pseudo-html tags around the translation, and then the translation is post-processed with `filter_list` to only consider anything inside these tags. (We do this because LLMs like to output other text, such as explanations.) The output is compared to `doc_to_target` for metrics. `{{de}}` and `{{hsb}}` refer to columns in the CSV. 
 
 ### Reducing the development set size
 
