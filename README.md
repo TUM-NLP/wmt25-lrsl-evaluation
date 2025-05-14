@@ -64,7 +64,7 @@ As long as you provided the `--output_path` and `--log_samples` flag, you will f
 ## Customization
 In the default setup, there is a predefined prompt for the models. The prompts can be modified in the `.yaml` files that denote the task, found in `lm_eval/tasks/wmt25-lrsl/`. 
 For example, here is an except from `deu-hsb.yaml`:
-```
+```yaml
 doc_to_text: "Translate the following German text to Upper Sorbian. Put it in this format <hsb> Upper Sorbian translation </hsb>.\n<deu> {{de}} </deu>"
 doc_to_target: "{{hsb}}"
 filter_list:
