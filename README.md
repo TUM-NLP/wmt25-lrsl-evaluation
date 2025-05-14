@@ -1,20 +1,30 @@
 # WMT25 Shared Task - LLMs with Limited Resources for Slavic Languages: MT and QA (WMT25-LRSL)
 
-This is a fork of the [lm-evaluation-harness](https://github.com/EleutherAI/lm-evaluation-harness) specifically to aid with evaluation for the WMT25-LRSL shared task. You are in no way required to use this for the shared task. This is merely to help in evaluating models, and so you can see how the baseline scores were obtained.
+This is a fork of the [lm-evaluation-harness](https://github.com/EleutherAI/lm-evaluation-harness) to aid with development for the WMT25-LRSL shared task.
+This is repository shows how the baseline scores were obtained, and may optionally be used by participants to evaluate their models during the development phase.
 
-## Usage
+## Setup
 
-1. First install the package:
+1. Clone the repository:
 ```bash
 git clone --depth 1 https://github.com/Leukas/wmt25-lrsl-evaluation
+```
+2. Remember to set up a fresh Python environment with your favourite package manager.
+   The baselines were run with Python 3.12, but version 3.10 also works.
+3. Install the package:
+```bash
 cd wmt25-lrsl-evaluation
 pip install -e .
-``` 
-2. (Temporary) Then clone the data repository into the root folder (`lm-evaluation-harness/`). (This is only temporary, I will clone the data into this repo once it is public.)
-3. (Temporary) Run `python prepare_data.py` (Also temporary, I will just provide the data already prepared.)
-4. Now you can run a model on all of the evaluation sets:
 ```
-lm_eval --model hf 
+
+4. (Temporary) Then clone the data repository into the root folder (`lm-evaluation-harness/`). (This is only temporary, I will clone the data into this repo once it is public.)
+5. (Temporary) Run `python prepare_data.py` (Also temporary, I will just provide the data already prepared.)
+
+## Running the baselines
+
+With the package installed, you can run a model on all of the evaluation sets:
+```
+lm_eval --model hf \
     --model_args pretrained=unsloth/Qwen2.5-3B-Instruct-unsloth-bnb-4bit \
     --tasks sorbian \
     --device cuda:0 \
@@ -57,12 +67,15 @@ Similarly for Ukrainian, pass in `ukrainian` for all the Ukrainian tasks:
 | - ukrqa  |      0|none       |     0|acc   |↑  | 0.3018|±  |0.0186|
 ```
 
-### Inspecting outputs
-As long as you provided the `--output_path` and `--log_samples` flag, you will find the full example, with the input and output, in `<output_path>/<model_name>/samples_<task_name>_<timestamp>.jsonl`
+## Inspecting the outputs
+
+If you provided the `--output_path` and `--log_samples` flag, you will find the full examples, with the input and output, in `<output_path>/<model_name>/samples_<task_name>_<timestamp>.jsonl`
 
 
 ## Customization
-In the default setup, there is a predefined prompt for the models. The prompts can be modified in the `.yaml` files that denote the task, found in `lm_eval/tasks/wmt25-lrsl/`. 
+
+Each task has a corresponding `.yaml` file that defines the task, found in `lm_eval/tasks/wmt25-lrsl/`. 
+
 For example, here is the `deu-hsb.yaml`:
 ```yaml
 task: deu-hsb
@@ -87,8 +100,14 @@ metadata:
   version: 0.0
 ```
 
+### Changing the prompt
+
 The `doc_to_text` prompts the model to put pseudo-html tags around the translation, and then the translation is post-processed with `filter_list` to only consider anything inside these tags. (We do this because LLMs like to output other text, such as explanations.) The output is compared to `doc_to_target` for metrics. `{{de}}` and `{{hsb}}` refer to columns in the CSV. 
 
-You are welcome to change these `.yaml` files however you see fit. For example, you might notice that the MT evaluation takes a while so you could create a new CSV file with fewer examples, and then change the path `test` under `data_files`.
+### Reducing the development set size
+
+You might notice that the MT evaluation takes a while, so for development purposes you can evaluate on a smaller dev set by adding the flag `--limit {n}` to the command line arguments.
+
+## Further Information
 
 More information can be found in the original [lm-evaluation-harness](https://github.com/EleutherAI/lm-evaluation-harness) repo. The final evaluation will be done on outputs you submit, so you have full control over any pre-processing, prompting, and post-processing. 
