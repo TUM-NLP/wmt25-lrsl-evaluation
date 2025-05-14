@@ -63,8 +63,15 @@ As long as you provided the `--output_path` and `--log_samples` flag, you will f
 
 ## Customization
 In the default setup, there is a predefined prompt for the models. The prompts can be modified in the `.yaml` files that denote the task, found in `lm_eval/tasks/wmt25-lrsl/`. 
-For example, here is an except from `deu-hsb.yaml`:
+For example, here is the `deu-hsb.yaml`:
 ```yaml
+task: deu-hsb
+dataset_path: csv
+dataset_name: null
+dataset_kwargs:
+  data_files:  
+    test: llms-limited-resources2025-private/Sorbian/hsb/MT/dev.de-hsb.csv
+test_split: test
 doc_to_text: "Translate the following German text to Upper Sorbian. Put it in this format <hsb> Upper Sorbian translation </hsb>.\n<deu> {{de}} </deu>"
 doc_to_target: "{{hsb}}"
 filter_list:
@@ -73,8 +80,15 @@ filter_list:
       - function: "regex"
         regex_pattern: "<hsb> (.*) </hsb>"
       - function: "take_first"
+metric_list:
+  - metric: bleu
+  - metric: chrf++
+metadata:
+  version: 0.0
 ```
 
-This prompts the model to put pseudo-html tags around the translation, and then the translation is post-processed to only consider anything inside these tags. (We do this because LLMs like to output other text, such as explanations.) 
+The `doc_to_text` prompts the model to put pseudo-html tags around the translation, and then the translation is post-processed with `filter_list` to only consider anything inside these tags. (We do this because LLMs like to output other text, such as explanations.) The output is compared to `doc_to_target` for metrics. `{{de}}` and `{{hsb}}` refer to columns in the CSV. 
 
-You are welcome to change these `.yaml` files however you see fit. More information can be found in the original [lm-evaluation-harness](https://github.com/EleutherAI/lm-evaluation-harness) repo. The final evaluation will be done on outputs you submit, so you have full control over any pre-processing, prompting, and post-processing. 
+You are welcome to change these `.yaml` files however you see fit. For example, you might notice that the MT evaluation takes a while so you could create a new CSV file with fewer examples, and then change the path `test` under `data_files`.
+
+More information can be found in the original [lm-evaluation-harness](https://github.com/EleutherAI/lm-evaluation-harness) repo. The final evaluation will be done on outputs you submit, so you have full control over any pre-processing, prompting, and post-processing. 
