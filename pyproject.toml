@@ -21,6 +21,7 @@ license = { "text" = "MIT" }
 dependencies = [
     "accelerate>=0.26.0",
     "evaluate",
+    "bitsandbytes",
     "datasets>=2.16.0",
     "evaluate>=0.4.0",
     "jsonlines",
