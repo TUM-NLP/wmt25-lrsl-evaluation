@@ -1,0 +1,6 @@
+task: hsbqa-b1
+dataset_kwargs:
+  data_files:  
+    test: llms-limited-resources2025-private/Sorbian/hsb/QA/HSB_B1.csv
+metadata:
+  version: 0.0

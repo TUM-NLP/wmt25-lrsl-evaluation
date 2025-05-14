@@ -109,6 +109,19 @@ def chrf(items):
     refs, preds = _sacreformat(refs, preds)
     return sacrebleu.corpus_chrf(preds, refs).score
 
+@register_aggregation("chrf++")
+def chrfpp(items):
+    """chrF++ is a tool for automatic evaluation of machine translation output
+    based on character n-gram precision and recall enhanced with word n-grams.
+    Source: https://github.com/m-popovic/chrF
+    Paper: https://www.aclweb.org/anthology/W15-3049.pdf
+
+    Higher is better  # TODO I think
+    """
+    refs = list(zip(*items))[0]
+    preds = list(zip(*items))[1]
+    refs, preds = _sacreformat(refs, preds)
+    return sacrebleu.corpus_chrf(preds, refs, word_order=2).score
 
 @register_aggregation("ter")
 def ter(items):
@@ -345,6 +358,15 @@ def bleu_fn(items):  # This is a passthrough function
 def chrf_fn(items):  # This is a passthrough function
     return items
 
+@register_metric(
+    metric="chrf++",
+    higher_is_better=True,
+    output_type="generate_until",
+    aggregation="chrf++",
+)
+def chrfpp_fn(items):  # This is a passthrough function
+    return items
+
 
 @register_metric(
     metric="ter",
@@ -504,6 +526,7 @@ def stderr_for_metric(metric, bootstrap_iters: int):
         perplexity,
         bleu,
         chrf,
+        chrfpp,
         ter,
         nanmean,
     ]

@@ -1,0 +1,20 @@
+task: deu-hsb
+dataset_path: csv
+dataset_name: null
+dataset_kwargs:
+  data_files:  
+    test: llms-limited-resources2025-private/Sorbian/hsb/MT/dev.de-hsb.csv
+test_split: test
+doc_to_text: "Translate the following German text to Upper Sorbian. Put it in this format <hsb> Upper Sorbian translation </hsb>.\n<deu> {{de}} </deu>"
+doc_to_target: "{{hsb}}"
+filter_list:
+  - name: "remove_tags"
+    filter:
+      - function: "regex"
+        regex_pattern: "<hsb> (.*) </hsb>"
+      - function: "take_first"
+metric_list:
+  - metric: bleu
+  - metric: chrf++
+metadata:
+  version: 0.0

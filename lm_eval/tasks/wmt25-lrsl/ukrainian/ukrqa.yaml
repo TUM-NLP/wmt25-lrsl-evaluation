@@ -1,0 +1,17 @@
+task: ukrqa
+dataset_path: csv
+dataset_name: null
+dataset_kwargs:
+  data_files:  
+    test: llms-limited-resources2025-private/Ukrainian/QA/dev.csv
+test_split: test
+output_type: multiple_choice
+doc_to_text: "Question:\n{{question.strip()}}\n\nPossible answers:\n{{possible_answers.strip()}}\n\nAnswer:"
+doc_to_choice: ["А", "Б", "В", "Г", "Д"]
+doc_to_target: "{{correct_answer}}"
+metric_list:
+  - metric: acc
+    aggregation: mean
+    higher_is_better: true
+metadata:
+  version: 0.0

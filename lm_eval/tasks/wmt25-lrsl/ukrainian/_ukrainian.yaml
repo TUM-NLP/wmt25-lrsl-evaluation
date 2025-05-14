@@ -1,0 +1,12 @@
+group: ukrainian
+task:
+  - ukrqa
+  - eng-ukr
+  - cze-ukr
+  # - include_base_44_ukrainian
+aggregate_metric_list:
+  - metric: acc
+    aggregation: mean
+    weight_by_size: false
+metadata:
+  version: 0.0
