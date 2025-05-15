@@ -10,7 +10,7 @@ This repository shows how the baseline scores were obtained, and may optionally 
 git clone --depth 1 https://github.com/Leukas/wmt25-lrsl-evaluation
 ```
 2. Remember to set up a fresh Python environment with your favourite package manager.
-   The baselines were run with Python 3.12, but version 3.10 also works.
+   The baselines were run with Python 3.12, and we tested with Python 3.10 as well.
 3. Install the package:
 ```bash
 cd wmt25-lrsl-evaluation
