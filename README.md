@@ -10,9 +10,9 @@ git clone --depth 1 https://github.com/Leukas/wmt25-lrsl-evaluation
 cd wmt25-lrsl-evaluation
 pip install -e .
 ``` 
-2. (Temporary) Then clone the data repository into the root folder (`lm-evaluation-harness/`). (This is only temporary, I will clone the data into this repo once it is public.)
-3. (Temporary) Run `python prepare_data.py` (Also temporary, I will just provide the data already prepared.)
-4. Now you can run a model on all of the evaluation sets:
+1. Then clone the data repository into the root folder (`lm-evaluation-harness/`).
+2. Run `python prepare_data.py`. This just changes some file formats to make it easier to load, nothing about the data is changed. 
+3. Now you can run a model on all of the evaluation sets:
 ```
 lm_eval --model hf 
     --model_args pretrained=unsloth/Qwen2.5-3B-Instruct-unsloth-bnb-4bit \
