@@ -1,6 +1,6 @@
 task: dsbqa-a2
 dataset_kwargs:
   data_files:  
-    test: llms-limited-resources2025-private/Sorbian/dsb/QA/DSB_A2.csv
+    test: llms-limited-resources2025/Sorbian/dsb/QA/DSB_A2.csv
 metadata:
   version: 0.0

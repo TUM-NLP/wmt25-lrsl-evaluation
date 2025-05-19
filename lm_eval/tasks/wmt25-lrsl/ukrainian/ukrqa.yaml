@@ -3,7 +3,7 @@ dataset_path: csv
 dataset_name: null
 dataset_kwargs:
   data_files:  
-    test: llms-limited-resources2025-private/Ukrainian/QA/dev.csv
+    test: llms-limited-resources2025/Ukrainian/QA/dev.csv
 test_split: test
 output_type: multiple_choice
 doc_to_text: "Question:\n{{question.strip()}}\n\nPossible answers:\n{{possible_answers.strip()}}\n\nAnswer:"

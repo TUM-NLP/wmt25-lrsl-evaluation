@@ -40,13 +40,13 @@ def prep_ukrqa_data(json_file):
     pd.DataFrame(new_data).to_csv(new_fp, index=False)
 
 # put sorbian mt data into csv
-make_csv("./llms-limited-resources2025-private/Sorbian/dsb/MT/dev.de-dsb.de", "./llms-limited-resources2025-private/Sorbian/dsb/MT/dev.de-dsb.dsb", "de", "dsb")
-make_csv("./llms-limited-resources2025-private/Sorbian/hsb/MT/dev.de-hsb.de", "./llms-limited-resources2025-private/Sorbian/hsb/MT/dev.de-hsb.hsb", "de", "hsb")
+make_csv("./llms-limited-resources2025/Sorbian/dsb/MT/dev.de-dsb.de", "./llms-limited-resources2025/Sorbian/dsb/MT/dev.de-dsb.dsb", "de", "dsb")
+make_csv("./llms-limited-resources2025/Sorbian/hsb/MT/dev.de-hsb.de", "./llms-limited-resources2025/Sorbian/hsb/MT/dev.de-hsb.hsb", "de", "hsb")
 
 
 # put ukrainian mt data into csv
-make_csv("./llms-limited-resources2025-private/Ukrainian/MT/dev.en-uk.en", "./llms-limited-resources2025-private/Ukrainian/MT/dev.en-uk.uk", "en", "uk")
-make_csv("./llms-limited-resources2025-private/Ukrainian/MT/dev.cs-uk.cs", "./llms-limited-resources2025-private/Ukrainian/MT/dev.cs-uk.uk", "cs", "uk")
+make_csv("./llms-limited-resources2025/Ukrainian/MT/dev.en-uk.en", "./llms-limited-resources2025/Ukrainian/MT/dev.en-uk.uk", "en", "uk")
+make_csv("./llms-limited-resources2025/Ukrainian/MT/dev.cs-uk.cs", "./llms-limited-resources2025/Ukrainian/MT/dev.cs-uk.uk", "cs", "uk")
 
 # put ukrainian qa data into csv
-prep_ukrqa_data("./llms-limited-resources2025-private/Ukrainian/QA/dev.json")
+prep_ukrqa_data("./llms-limited-resources2025/Ukrainian/QA/dev.json")

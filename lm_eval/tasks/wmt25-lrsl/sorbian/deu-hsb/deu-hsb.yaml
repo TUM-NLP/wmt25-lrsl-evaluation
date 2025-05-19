@@ -3,7 +3,7 @@ dataset_path: csv
 dataset_name: null
 dataset_kwargs:
   data_files:  
-    test: llms-limited-resources2025-private/Sorbian/hsb/MT/dev.de-hsb.csv
+    test: llms-limited-resources2025/Sorbian/hsb/MT/dev.de-hsb.csv
 test_split: test
 doc_to_text: "Translate the following German text to Upper Sorbian. Put it in this format <hsb> Upper Sorbian translation </hsb>.\n<deu> {{de}} </deu>"
 doc_to_target: "{{hsb}}"
