@@ -42,7 +42,7 @@ def main(eval_harness_outputs, model_name, predictions_save_folder):
 
                     if is_mt:
                         src_lang = LANGCODES_3_TO_2[task_name.split("-")[0]]
-                        pseudo_test_data = {
+                        output_pred_data = {
                             "doc_id": line_data["doc_id"],
                             "pred": line_data["filtered_resps"][0],
                             "source": line_data["doc"][src_lang]  # not strictly needed but helpful for manual checking
@@ -70,7 +70,7 @@ def main(eval_harness_outputs, model_name, predictions_save_folder):
                         else:
                             prediction = None
 
-                        pseudo_test_data = {
+                        output_pred_data = {
                             "doc_id": line_data["doc_id"],
                             "question_id": line_data["doc"]["question_id"] if "question_id" in line_data["doc"] else None,
                             "pred": prediction,
@@ -78,7 +78,7 @@ def main(eval_harness_outputs, model_name, predictions_save_folder):
                             "question": line_data["doc"]["question"],
                             "possible_answers": line_data["doc"]["possible_answers"].split("\n")
                         }
-                    predictions_save_file.write(json.dumps(pseudo_test_data, ensure_ascii=False) + "\n")
+                    predictions_save_file.write(json.dumps(output_pred_data, ensure_ascii=False) + "\n")
 
 
 if __name__ == "__main__":
