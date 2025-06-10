@@ -56,15 +56,14 @@ def main(eval_harness_outputs, model_name, predictions_save_folder):
                             tried_answers.append(arguments_run[f'gen_args_{i}']['arg_1'])
 
                         responses = line_data["filtered_resps"]
-                        responses = [resp[0] for resp in responses]
+                        responses_val = [float(resp[0]) for resp in responses]
+
                         if "sb" in task_name:
-                            num_answers = len(line_data["doc"]["possible_answers"].split("\n"))
-                            responses = responses[:num_answers]
                             tried_answers = [int(resp) for resp in tried_answers]
                         elif "ukr" in task_name:
                             tried_answers = [resp.strip() for resp in tried_answers]
 
-                        pred_idx = np.argmax(responses)
+                        pred_idx = np.argmax(responses_val)
 
                         if pred_idx is not None:
                             prediction = tried_answers[pred_idx]
