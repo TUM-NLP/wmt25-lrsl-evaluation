@@ -69,6 +69,10 @@ Similarly for Ukrainian, pass in `ukrainian` for all the Ukrainian tasks:
 | - ukrqa  |      0|none       |     0|acc   |↑  | 0.3018|±  |0.0186|
 ```
 
+#### Running the test sets
+All of the test sets have been added, with `-test` appended onto each task and subtask. NOTE: The labels are meaningless in the test sets, thus the scores are also meaningless. This is only useful for generating output!
+
+
 ## Inspecting the outputs
 
 If you provided the `--output_path` and `--log_samples` flag, you will find the full examples, with the input and output, in `<output_path>/<model_name>/samples_<task_name>_<timestamp>.jsonl`
