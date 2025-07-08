@@ -2,6 +2,11 @@
 import pandas as pd
 import json
 
+import argparse
+
+parser = argparse.ArgumentParser("Data preprocessing for lm-eval")
+parser.add_argument("--split", type=str, default="dev")
+
 def make_csv(file1, file2, header1, header2):
     with open(file1, "r", encoding="utf-8") as f:
         a_lines = [line.strip() for line in f]
@@ -14,7 +19,7 @@ def make_csv(file1, file2, header1, header2):
     new_fp = ".".join(new_fp)
     pd.DataFrame({header1: a_lines, header2: b_lines}).to_csv(new_fp, index=False)
 
-def prep_ukrqa_data(json_file):
+def prep_ukrqa_data(json_file, split="dev"):
     with open(json_file, "r", encoding="utf-8") as f:
         data = json.load(f)
 
@@ -31,7 +36,10 @@ def prep_ukrqa_data(json_file):
 
         new_entry["question"] = entry["question"]
         new_entry["possible_answers"] = " ".join(possible_answers)
-        new_entry["correct_answer"] = entry["correct_answers"][0]
+        if split == "test":
+            new_entry["correct_answer"] = "hidden"
+        else:
+            new_entry["correct_answer"] = entry["correct_answers"][0]
         new_data.append(new_entry)
 
     new_fp = json_file.split(".")
@@ -39,14 +47,27 @@ def prep_ukrqa_data(json_file):
     new_fp = ".".join(new_fp)
     pd.DataFrame(new_data).to_csv(new_fp, index=False)
 
-# put sorbian mt data into csv
-make_csv("./llms-limited-resources2025/Sorbian/dsb/MT/dev.de-dsb.de", "./llms-limited-resources2025/Sorbian/dsb/MT/dev.de-dsb.dsb", "de", "dsb")
-make_csv("./llms-limited-resources2025/Sorbian/hsb/MT/dev.de-hsb.de", "./llms-limited-resources2025/Sorbian/hsb/MT/dev.de-hsb.hsb", "de", "hsb")
+args = parser.parse_args()
 
+if args.split == "dev":
+    # put sorbian mt data into csv
+    make_csv("./llms-limited-resources2025/Sorbian/dsb/MT/dev.de-dsb.de", "./llms-limited-resources2025/Sorbian/dsb/MT/dev.de-dsb.dsb", "de", "dsb")
+    make_csv("./llms-limited-resources2025/Sorbian/hsb/MT/dev.de-hsb.de", "./llms-limited-resources2025/Sorbian/hsb/MT/dev.de-hsb.hsb", "de", "hsb")
 
-# put ukrainian mt data into csv
-make_csv("./llms-limited-resources2025/Ukrainian/MT/dev.en-uk.en", "./llms-limited-resources2025/Ukrainian/MT/dev.en-uk.uk", "en", "uk")
-make_csv("./llms-limited-resources2025/Ukrainian/MT/dev.cs-uk.cs", "./llms-limited-resources2025/Ukrainian/MT/dev.cs-uk.uk", "cs", "uk")
+    # put ukrainian mt data into csv
+    make_csv("./llms-limited-resources2025/Ukrainian/MT/dev.en-uk.en", "./llms-limited-resources2025/Ukrainian/MT/dev.en-uk.uk", "en", "uk")
+    make_csv("./llms-limited-resources2025/Ukrainian/MT/dev.cs-uk.cs", "./llms-limited-resources2025/Ukrainian/MT/dev.cs-uk.uk", "cs", "uk")
 
-# put ukrainian qa data into csv
-prep_ukrqa_data("./llms-limited-resources2025/Ukrainian/QA/dev.json")
+    # put ukrainian qa data into csv
+    prep_ukrqa_data("./llms-limited-resources2025/Ukrainian/QA/dev.json")
+elif args.split == "test":
+    # put sorbian mt data into csv
+    make_csv("./llms-limited-resources2025/Sorbian/dsb/MT/test.de-dsb.de", "./llms-limited-resources2025/Sorbian/dsb/MT/test.de-dsb.de", "de", "dsb")
+    make_csv("./llms-limited-resources2025/Sorbian/hsb/MT/test.de-hsb.de", "./llms-limited-resources2025/Sorbian/hsb/MT/test.de-hsb.de", "de", "hsb")
+
+    # put ukrainian mt data into csv
+    # make_csv("./llms-limited-resources2025/Ukrainian/MT/test.en-uk.en", "./llms-limited-resources2025/Ukrainian/MT/test.en-uk.uk", "en", "uk")
+    # make_csv("./llms-limited-resources2025/Ukrainian/MT/test.cs-uk.cs", "./llms-limited-resources2025/Ukrainian/MT/test.cs-uk.uk", "cs", "uk")
+
+    # put ukrainian qa data into csv
+    prep_ukrqa_data("./llms-limited-resources2025/Ukrainian/QA/test.json", split="test")

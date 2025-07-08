@@ -1,0 +1,23 @@
+group: dsbqa-test
+task:
+  - dsbqa-a1-test
+  - dsbqa-a2-test
+  - dsbqa-b1-test
+  - dsbqa-b2-test
+dataset_path: csv
+dataset_name: null
+test_split: test
+output_type: multiple_choice
+doc_to_text: "{{context.strip()}}\n\nQuestion:\n{{question.strip()}}\n\nPossible answers:\n{{possible_answers.strip()}}\n\nAnswer:"
+doc_to_choice: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16"]
+doc_to_target: "-1"
+metric_list:
+  - metric: acc
+    aggregation: mean
+    higher_is_better: true
+aggregate_metric_list:
+  - metric: acc
+    aggregation: mean
+    weight_by_size: false
+metadata:
+  version: 0.0

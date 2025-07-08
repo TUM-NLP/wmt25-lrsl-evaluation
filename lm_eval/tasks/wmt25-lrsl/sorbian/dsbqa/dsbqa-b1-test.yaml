@@ -1,0 +1,6 @@
+task: dsbqa-b1-test
+dataset_kwargs:
+  data_files:  
+    test: llms-limited-resources2025/Sorbian/dsb/QA/test/test_DSB_B1.csv
+metadata:
+  version: 0.0

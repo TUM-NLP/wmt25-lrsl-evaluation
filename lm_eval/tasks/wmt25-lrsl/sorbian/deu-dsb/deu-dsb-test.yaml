@@ -1,0 +1,20 @@
+task: deu-dsb-test
+dataset_path: csv
+dataset_name: null
+dataset_kwargs:
+  data_files:  
+    test: llms-limited-resources2025/Sorbian/dsb/MT/test.de-dsb.csv
+test_split: test
+doc_to_text: "Translate the following German text to Lower Sorbian. Put it in this format <dsb> Lower Sorbian translation </dsb>.\n<deu> {{de}} </deu>"
+doc_to_target: "{{dsb}}"
+filter_list:
+  - name: "remove_tags"
+    filter:
+      - function: "regex"
+        regex_pattern: "<dsb> (.*) </dsb>"
+      - function: "take_first"
+metric_list:
+  - metric: bleu
+  - metric: chrf++
+metadata:
+  version: 0.0
