@@ -4,11 +4,12 @@ task:
   - dsbqa-a2-test
   - dsbqa-b1-test
   - dsbqa-b2-test
+  - dsbqa-c1-test
 dataset_path: csv
 dataset_name: null
 test_split: test
 output_type: multiple_choice
-doc_to_text: "{{context.strip()}}\n\nQuestion:\n{{question.strip()}}\n\nPossible answers:\n{{possible_answers.strip()}}\n\nAnswer:"
+doc_to_text: "{{context.strip() if context else ''}}\n\nQuestion:\n{{question.strip()}}\n\nPossible answers:\n{{possible_answers.strip()}}\n\nAnswer:"
 doc_to_choice: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16"]
 doc_to_target: "-1"
 metric_list:
