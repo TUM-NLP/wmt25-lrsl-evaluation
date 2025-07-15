@@ -54,8 +54,10 @@ def main(eval_harness_outputs, model_name, predictions_save_folder):
 
                     if is_mt:
                         src_lang = LANGCODES_3_TO_2[task_name.split("-")[0]]
+                        sent_id = f'{lang_pair}-{i:05}' # Sentence ID 
                         if tgt_lang == 'uk' and dataset_type == 'test': # Ukrainian language pair detected: test set
                             source_data = line_data["doc"]["src_text"]
+                            sent_id = line_data['doc']['doc_id']
                         elif tgt_lang == 'uk': # Ukrainian language pair detected: dev set
                             source_data = line_data["doc"][src_lang]
                         elif 'sb' in tgt_lang: # Sorbian language pair detected
@@ -63,9 +65,10 @@ def main(eval_harness_outputs, model_name, predictions_save_folder):
                         else:
                             raise ValueError(f'Unexpected target language: {tgt_lang}')
                         
+                        
                         output_pred_data = {
                             "dataset_id": f'wmtslavicllm2025_{lang_pair}',
-                            "sent_id": f'{lang_pair}-{i:05}', #line_data["doc_id"],
+                            "sent_id": sent_id, #f'{lang_pair}-{i:05}', #line_data["doc_id"],
                             "source": source_data, #line_data["doc"][src_lang], # not strictly needed but helpful for manual checking
                             "pred": line_data["filtered_resps"][0]
                         }
